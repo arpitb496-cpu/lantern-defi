@@ -21,6 +21,7 @@ import {
   Flame,
   CheckCircle2,
   Wallet,
+  Sparkles,
 } from "lucide-react";
 
 function ScannerContent() {
@@ -161,28 +162,58 @@ function ScannerContent() {
           </div>
         </form>
 
-        {/* Quick select from user wallet */}
-        {userTokens.length > 0 && (
-          <div className="pt-2 border-t border-[var(--border)] flex flex-wrap items-center gap-2">
-            <span className="text-xs text-[var(--muted)] font-mono flex items-center gap-1.5 mr-1">
-              <Wallet className="w-3.5 h-3.5" />
-              <span>Wallet Tokens:</span>
-            </span>
-            {userTokens.map((t) => (
-              <button
-                key={t.mint}
-                onClick={() => {
-                  setInputMint(t.mint);
-                  performScan(t.mint);
-                }}
-                className="tag-chip text-xs hover:border-white/30"
-              >
-                <span className="font-mono">{t.mint.slice(0, 4)}...{t.mint.slice(-4)}</span>
-                <span className="text-[var(--text)]">({t.balance})</span>
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Quick select examples or from user wallet */}
+        <div className="pt-2 border-t border-[var(--border)] flex flex-wrap items-center gap-2">
+          <span className="text-xs text-[var(--muted)] font-mono flex items-center gap-1.5 mr-1">
+            <Sparkles className="w-3.5 h-3.5 text-chrome" />
+            <span>{language === "hi" ? "त्वरित उदाहरण:" : "Try Examples:"}</span>
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              const usdcMint = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+              setInputMint(usdcMint);
+              performScan(usdcMint);
+            }}
+            className="tag-chip text-xs hover:border-white/30"
+          >
+            <span>Devnet USDC</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              const wsolMint = "So11111111111111111111111111111111111111112";
+              setInputMint(wsolMint);
+              performScan(wsolMint);
+            }}
+            className="tag-chip text-xs hover:border-white/30"
+          >
+            <span>Wrapped SOL</span>
+          </button>
+
+          {userTokens.length > 0 && (
+            <>
+              <span className="text-xs text-[var(--muted)] font-mono flex items-center gap-1.5 ml-2 mr-1">
+                <Wallet className="w-3.5 h-3.5" />
+                <span>Wallet:</span>
+              </span>
+              {userTokens.map((t) => (
+                <button
+                  key={t.mint}
+                  type="button"
+                  onClick={() => {
+                    setInputMint(t.mint);
+                    performScan(t.mint);
+                  }}
+                  className="tag-chip text-xs hover:border-white/30"
+                >
+                  <span className="font-mono">{t.mint.slice(0, 4)}...{t.mint.slice(-4)}</span>
+                  <span className="text-[var(--text)]">({t.balance})</span>
+                </button>
+              ))}
+            </>
+          )}
+        </div>
       </section>
 
       {/* Error Message */}

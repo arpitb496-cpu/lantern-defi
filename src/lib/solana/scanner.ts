@@ -6,7 +6,21 @@ export async function scanTokenMint(
   connection: Connection,
   mintAddressStr: string
 ): Promise<TokenScanResult> {
-  const mintPubkey = new PublicKey(mintAddressStr.trim());
+  const trimmed = mintAddressStr.trim();
+  if (trimmed.startsWith("0x") || trimmed.startsWith("0X")) {
+    throw new Error(
+      "Invalid Address: This is an Ethereum/EVM (0x...) address. Solana tokens use Base58 addresses (e.g., 4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU)."
+    );
+  }
+
+  let mintPubkey: PublicKey;
+  try {
+    mintPubkey = new PublicKey(trimmed);
+  } catch {
+    throw new Error(
+      "Invalid Solana Address: Please enter a valid 32-44 character Base58 token mint address."
+    );
+  }
 
   // 1. Fetch account info with parsed JSON
   const accountInfo = await connection.getParsedAccountInfo(mintPubkey);
