@@ -1,5 +1,7 @@
 "use client";
 
+import { HowLanternChecks } from "@/components/education/HowLanternChecks";
+
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -494,17 +496,16 @@ export default function DashboardPage() {
 
             <div className="space-y-1.5">
               <h3 className="font-serif text-2xl text-white font-normal">
-                {language === "hi" ? "सुरक्षा सिद्धांत" : "Security Principles"}
+                {t("education.securityPrinciples")}
               </h3>
               <p className="text-xs text-[var(--muted)] leading-relaxed font-normal">
-                {language === "hi"
-                  ? "कभी भी अपनी सीक्रेट की (Private Key) किसी को न दें। किसी भी लेन-देन को साइन करने से पहले हमेशा जांचें।"
-                  : "Never share private keys or seed phrases. All transactions are simulated in your browser before signing."}
+                {t("education.simulation")}
               </p>
             </div>
           </div>
         </div>
       </section>
+      <HowLanternChecks />
     </div>
   );
 }

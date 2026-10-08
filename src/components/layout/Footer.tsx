@@ -64,7 +64,12 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#555a64] gap-2 pt-2">
-          <p>© 2026 Lantern — Open-source educational safety.</p>
+          <p>
+            © 2026 Lantern — {" "}
+            <a href="https://github.com/arpitb496-cpu/sol-kavach" target="_blank" rel="noreferrer" className="hover:text-white underline underline-offset-4">
+              {t("education.openSource")}
+            </a>
+          </p>
           <p className="font-mono text-[10px]">CLUSTER: DEVNET</p>
         </div>
       </div>

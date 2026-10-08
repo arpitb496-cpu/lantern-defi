@@ -1,15 +1,36 @@
 import { describe, it, expect } from "vitest";
-import { checkDomainSafety } from "../lib/security/domainChecker";
+import { checkDomainSafety, OFFICIAL_SOLANA_DOMAINS } from "../lib/security/domainChecker";
 
 describe("checkDomainSafety", () => {
-  it("should classify legitimate domains as safe", () => {
+  it("should recognize only listed official domains", () => {
     const res1 = checkDomainSafety("https://phantom.app");
-    expect(res1.verdict).toBe("safe");
+    expect(res1.verdict).toBe("recognized");
     expect(res1.domain).toBe("phantom.app");
 
     const res2 = checkDomainSafety("jup.ag");
-    expect(res2.verdict).toBe("safe");
+    expect(res2.verdict).toBe("recognized");
     expect(res2.domain).toBe("jup.ag");
+  });
+
+  it.each(OFFICIAL_SOLANA_DOMAINS)("recognizes the official domain %s", (domain) => {
+    const result = checkDomainSafety(domain);
+    expect(result.verdict).toBe("recognized");
+    expect(result.matchedOfficialDomain).toBe(domain);
+  });
+
+  it.each(["example.com", "https://unlisted-example.org/path", "another-unlisted-site.net"])(
+    "does not endorse the unknown domain %s",
+    (domain) => {
+      const result = checkDomainSafety(domain);
+      expect(result.verdict).toBe("unknown");
+      expect(result.matchedOfficialDomain).toBeUndefined();
+      expect(result.reasonEn).toContain("not a recognized site");
+      expect(result.reasonHi).toContain("पहचानी गई साइट नहीं");
+    }
+  );
+
+  it("does not recognize an official hostname embedded in another hostname", () => {
+    expect(checkDomainSafety("https://phantom.app.attacker.example").verdict).not.toBe("recognized");
   });
 
   it("should detect known phishing domains as blocked", () => {

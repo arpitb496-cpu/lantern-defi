@@ -12,6 +12,7 @@ import { WalletContextProvider } from "@/components/wallet/WalletContextProvider
 import { DevnetGuard } from "@/components/layout/DevnetGuard";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import en from "@/i18n/en.json";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -55,9 +56,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Lantern (लालटेन) — Solana Security Shield",
-  description:
-    "Spot scams, dangerous permissions, and token traps in your Solana wallet before you sign. Minimalist devnet security audit tool.",
+  title: en.metadata.home.title,
+  description: en.metadata.home.description,
   keywords: [
     "Solana",
     "Security",

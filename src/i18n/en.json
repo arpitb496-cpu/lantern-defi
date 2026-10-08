@@ -1,4 +1,72 @@
 {
+  "education": {
+    "verdictNote": "No warning does not guarantee safety.",
+    "noWarnings": "No warnings detected",
+    "caution": "Be careful",
+    "danger": "Do not sign",
+    "securityPrinciples": "Security principles",
+    "simulation": "Transactions are simulated using Solana RPC. Your keys never leave your wallet.",
+    "openSource": "Open-source educational safety",
+    "exampleTitle": "Worked Devnet example",
+    "faqTitle": "Questions before you start",
+    "scanner": {
+      "intro": "This scanner reads a token mint on Solana Devnet and highlights mint authority, freeze authority, Token-2022 extensions, and holder concentration. Warnings describe permissions and risk signals, not proof of fraud. Without connecting a wallet, you can paste a Devnet mint address, scan it, and read each explanation.",
+      "example": "Create a rigged Devnet token in Scam Lab, copy its mint address, and paste it here. Active mint authority adds 35 points, freeze authority adds 30, and a permanent delegate adds 25: these three flags alone reach 90/100 and a danger verdict. Freeze authority can stop transfers; a permanent delegate can transfer or burn tokens without the holder signing. This is an educational example, not a live scan result.",
+      "q1": "What does freeze authority allow?",
+      "a1": "The authority can freeze token accounts for this mint, preventing transfers, sales, and swaps while frozen. The same authority can thaw them; keeping this permission is a risk signal, not proof that it has been abused.",
+      "q2": "Does a warning prove a token is a scam?",
+      "a2": "No. These flags identify capabilities and concentrations that can be abused but may have legitimate uses. Review the issuer and the purpose of each permission independently; a low score also does not prove safety.",
+      "q3": "Can this check Mainnet tokens?",
+      "a3": "No, Devnet only. Paste a mint that exists on Solana Devnet. Mainnet token addresses cannot be evaluated against Mainnet data here."
+    },
+    "scamLab": {
+      "intro": "Scam Lab creates demonstration tokens on Solana Devnet so you can compare risky permissions with revoked authorities. The rigged token keeps mint and freeze authority and enables a permanent delegate; the comparison token revokes mint authority and has no freeze authority. Without a wallet, you can read the worked example, questions, and anatomy guide; connecting is only needed to create test tokens.",
+      "example": "On Devnet, create a rigged token with test SOL and send its mint to the Token Scanner. Expect active mint authority (+35), freeze authority (+30), and permanent delegate (+25): at least 90/100 from these flags. Compare with a token created using revoked authorities, which removes those three flags but is not guaranteed safe. This demo configures risky permissions; it does not perform a buy/sell honeypot or freeze anyone’s account.",
+      "q1": "What is a honeypot token?",
+      "a1": "A honeypot lets people acquire a token but prevents or restricts selling or transferring it. Freeze authority or custom transfer restrictions can be used to trap holders. This sandbox demonstrates risky permissions, not a working exchange trap.",
+      "q2": "Why create a test scam token?",
+      "a2": "To see how mint authority, freeze authority, and a permanent delegate appear in a real Devnet mint and in scanner warnings, without putting real funds at risk. Use test SOL only; the sandbox does not deploy Mainnet tokens.",
+      "q3": "Do I need to connect a wallet to learn from this page?",
+      "a3": "No. The explanations, worked example, and anatomy guide are available without connecting. Creating a demonstration token requires a wallet on Devnet, test SOL, and your approval of the creation transaction."
+    }
+  },
+  "checks": {
+    "title": "How Lantern checks",
+    "intro": "Lantern is an educational, Devnet-only tool, not a security audit or a promise of safety. On-chain reads, simulations, and token creation use Solana Devnet; domain checks use a local list and do not validate a site on any network.",
+    "scanner": "Token Scanner reads mint and freeze authorities, supported Token-2022 extensions, metadata presence, and the share held by the three largest token accounts. It cannot prove issuer intent, assess liquidity or price, or detect every malicious program.",
+    "approvals": "Approvals lists SPL token-account delegates and their spending allowances for a connected Devnet wallet, and lets you request revocation. It cannot discover every dApp connection, off-chain consent, or all program-specific permissions.",
+    "preview": "Transaction Preview decodes supported instructions and simulates a supplied transaction using Solana RPC. Unknown programs, authority changes, approvals, and account closures can trigger warnings. Versioned transaction instructions are not decoded; simulation results depend on RPC state and cannot guarantee what a later signed transaction will do.",
+    "domains": "Domain Check compares the hostname with a verified official list, a local phishing blocklist, and spelling/lookalike heuristics. Unlisted domains are unknown, not safe. It cannot inspect page content, catch all new phishing sites, or guarantee that a recognized site has not been compromised.",
+    "lab": "Scam Lab creates Devnet demonstration tokens with risky or revoked permissions. It teaches how scanner flags arise; it does not reproduce every scam, test market behavior, or verify real-world investment claims.",
+    "reviewed": "Last reviewed: October 8, 2026",
+    "contact": "Contact the maintainer or report an issue on GitHub"
+  },
+  "metadata": {
+    "home": {
+      "title": "Lantern | Educational Solana Devnet Safety Tools",
+      "description": "An educational, Devnet-only Solana toolkit for exploring token risks, delegate approvals, transaction previews, phishing domains, and demonstration tokens."
+    },
+    "scanner": {
+      "title": "Solana Devnet Token Risk Scanner | Lantern",
+      "description": "Inspect Solana Devnet token authorities, Token-2022 extensions, and holder concentration. Learn what warnings mean without connecting a wallet."
+    },
+    "scamLab": {
+      "title": "Solana Scam Token Sandbox | Lantern",
+      "description": "Learn how risky token permissions work with Devnet-only demonstrations, worked examples, and a wallet-free scam anatomy guide."
+    },
+    "approvals": {
+      "title": "Solana Devnet Token Approvals & Revoke | Lantern",
+      "description": "Review delegate spending allowances for a connected Solana Devnet wallet and request revocation. An educational permissions tool."
+    },
+    "preview": {
+      "title": "Solana Devnet Transaction Preview | Lantern",
+      "description": "Simulate a serialized Solana transaction using Devnet RPC and review supported instruction warnings before deciding whether to sign."
+    },
+    "domains": {
+      "title": "Solana Domain & Phishing Link Checker | Lantern",
+      "description": "Compare a domain with recognized Solana sites, a phishing blocklist, and lookalike heuristics. Unknown sites are not endorsed as safe."
+    }
+  },
   "common": {
     "appName": "Lantern",
     "appNameHindi": "लालटेन",
@@ -85,11 +153,11 @@
     "supply": "Total Supply",
     "decimals": "Decimals",
     "programType": "Token Standard",
-    "verdictClean": "Clean & Low Risk",
-    "verdictWarning": "Exercise Caution",
-    "verdictDanger": "High Danger / Potential Scam",
+    "verdictClean": "No warnings detected",
+    "verdictWarning": "Be careful",
+    "verdictDanger": "High risk detected",
     "flagsTitle": "Detected Risk Factors",
-    "noFlags": "No trapdoors or elevated risks detected in this mint."
+    "noFlags": "No warnings detected by these checks. This does not guarantee safety."
   },
   "approvals": {
     "title": "Approvals & Delegate Manager",
@@ -114,29 +182,34 @@
     "inputPlaceholder": "Paste base64 encoded transaction wire data here...",
     "simulateBtn": "Simulate & Analyze",
     "simulating": "Simulating on Devnet...",
-    "verdictSafe": "Safe to Sign",
-    "verdictCaution": "Be Careful - Noticeable Risk",
-    "verdictDanger": "DO NOT SIGN - Dangerous Actions Detected",
+    "verdictSafe": "No warnings detected",
+    "verdictCaution": "Be careful",
+    "verdictDanger": "Do not sign",
     "balanceChanges": "Predicted Balance Changes",
     "instructions": "Decoded Instructions",
     "dangerousInstructions": "High-Risk Instructions Flagged",
     "logs": "Simulation Logs"
   },
   "scamLab": {
+    "riggedCreated": "Rigged demonstration mint created",
+    "comparisonCreated": "Comparison mint created",
+    "riskyPermissions": "Risky permissions",
+    "revokedAuthorities": "Revoked authorities",
+    "noPermanentDelegate": "No permanent delegate",
     "title": "Scam Lab Sandbox",
-    "subtitle": "Safely create and test scam tokens vs clean tokens on Devnet. Understand the anatomy of real-world Solana drainers.",
-    "createScamTitle": "Mint Honeypot / Rigged Token",
+    "subtitle": "Compare token permission risks on Solana Devnet. Learn what warnings can and cannot tell you.",
+    "createScamTitle": "Mint Rigged Token (Permission Demo)",
     "createScamDesc": "Creates a test token with active Freeze Authority, active Mint Authority, and Token-2022 Permanent Delegate.",
     "createScamBtn": "Create Rigged Token (Scam Demo)",
-    "createSafeTitle": "Mint Safe / Clean Token",
-    "createSafeDesc": "Creates a test token where all authorities are cleanly revoked and supply is strictly capped.",
-    "createSafeBtn": "Create Safe Token",
+    "createSafeTitle": "Mint Token with Revoked Authorities",
+    "createSafeDesc": "Creates a Devnet comparison token with mint authority revoked, no freeze authority, and no permanent delegate. These settings do not guarantee safety.",
+    "createSafeBtn": "Create Comparison Token",
     "creating": "Creating on Devnet...",
     "mintSuccess": "Token Mint Created!",
     "scanNow": "Send to Risk Scanner",
     "learnTitle": "Scam Anatomy Guide (Learn in Plain Language)",
     "learnFreeze": "What is Freeze Authority Abuse?",
-    "learnFreezeDesc": "Scammers let you buy tokens on a decentralized exchange, but as soon as you try to sell or transfer, they activate the freeze switch on your account. You are trapped forever.",
+    "learnFreezeDesc": "A freeze authority can freeze a holder’s token account, preventing transfers or sales while frozen. The authority can also thaw it; scammers can abuse this permission to trap holders.",
     "learnMint": "What is Infinite Mint Dilution?",
     "learnMintDesc": "If the creator never revokes mint authority, they can print millions of new tokens for zero cost and dump them on liquidity pools, driving the price you paid straight to zero.",
     "learnDelegate": "What is Token-2022 Permanent Delegate?",
@@ -148,7 +221,17 @@
     "inputLabel": "Website URL or Domain",
     "inputPlaceholder": "e.g. phantom-wallet-airdrop.xyz or jupiter-exchange.net",
     "checkBtn": "Check Link Safety",
-    "resultSafe": "Legitimate Official Domain",
+    "resultRecognized": "Recognized official domain",
+    "officialReason": "Recognized official domain from Lantern's verified Solana domain list. This is not a guarantee of safety.",
+    "resultUnknown": "No warning found - not a recognized site. Verify it yourself before connecting.",
+    "analyzedHost": "Analyzed host:",
+    "officialReference": "Official reference:",
+    "status": {
+      "recognized": "Recognized",
+      "unknown": "Unknown",
+      "suspicious": "Caution",
+      "blocked": "Danger"
+    },
     "resultSuspicious": "Suspicious / Typo-squatting Detected",
     "resultBlocked": "Known Scam / Phishing Blocklist Match",
     "details": "Detection Analysis",
