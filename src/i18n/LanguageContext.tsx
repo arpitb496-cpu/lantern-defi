@@ -27,7 +27,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("solkavach_lang") as Language;
+      const saved = localStorage.getItem("lantern_lang") as Language;
       if (saved === "en" || saved === "hi") {
         setLanguageState(saved);
       }
@@ -39,7 +39,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     try {
-      localStorage.setItem("solkavach_lang", lang);
+      localStorage.setItem("lantern_lang", lang);
     } catch {
       // ignore
     }

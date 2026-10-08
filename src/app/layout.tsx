@@ -55,13 +55,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "SolKavach (सोल कवच) — Solana Security Shield",
+  title: "Lantern (लालटेन) — Solana Security Shield",
   description:
     "Spot scams, dangerous permissions, and token traps in your Solana wallet before you sign. Minimalist devnet security audit tool.",
   keywords: [
     "Solana",
     "Security",
-    "SolKavach",
+    "Lantern",
     "Token Scanner",
     "Solana Approvals",
     "Token-2022",

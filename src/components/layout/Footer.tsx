@@ -17,7 +17,7 @@ export function Footer() {
               <Shield className="w-3 h-3 text-white/80" strokeWidth={1.75} />
             </div>
             <span className="font-serif text-base text-white font-normal">
-              SolKavach
+              Lantern
             </span>
             <span className="text-[var(--border)]">/</span>
             <span className="text-xs text-[var(--muted)]">
@@ -64,7 +64,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#555a64] gap-2 pt-2">
-          <p>© 2026 SolKavach — Open-source educational safety.</p>
+          <p>© 2026 Lantern — Open-source educational safety.</p>
           <p className="font-mono text-[10px]">CLUSTER: DEVNET</p>
         </div>
       </div>

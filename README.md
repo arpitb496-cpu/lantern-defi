@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🛡️ SolKavach (सोल कवच)
+# 🏮 Lantern (लालटेन)
 
 **Pre-Sign Solana Security & Scam Detection Engine**
 
@@ -12,12 +12,12 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
 <p align="center">
-  A client-side security platform that audits token contracts, simulates raw transactions before wallet signing, scans token account delegations, flags lookalike phishing domains, and provides a sandbox for minting and inspecting test honeypots.
+  A client-side security platform that illuminates risks before you sign: audits token contracts, simulates raw transactions before wallet signing, scans token account delegations, flags lookalike phishing domains, and provides a sandbox for minting and inspecting test honeypots.
 </p>
 
 ---
 
-![SolKavach Dashboard](docs/assets/dashboard.png)
+![Lantern Dashboard](docs/assets/dashboard.png)
 
 </div>
 
@@ -25,7 +25,7 @@
 
 ## Architecture Flowchart
 
-The following flowchart outlines the SolKavach pre-sign analysis pipeline, showing how user inputs and wallet requests are routed through parallel detection modules before a composite security score and recommendation are returned:
+The following flowchart outlines the Lantern pre-sign analysis pipeline, showing how user inputs and wallet requests are routed through parallel detection modules before a composite security score and recommendation are returned:
 
 ```mermaid
 flowchart TD
@@ -36,7 +36,7 @@ flowchart TD
         A4["Target dApp URL / Domain"]
     end
 
-    subgraph Engine["2. SolKavach Risk Analysis Pipeline"]
+    subgraph Engine["2. Lantern Risk Analysis Pipeline"]
         B1["Token Mint Inspector<br/><code>src/lib/solana/scanner.ts</code>"]
         B2["Pre-Sign Simulator & Instruction Decoder<br/><code>src/lib/solana/simulator.ts</code>"]
         B3["Delegation & Allowance Auditor<br/><code>src/lib/solana/approvals.ts</code>"]
@@ -136,7 +136,7 @@ Analyzes input URLs against a known drainer blocklist and executes character-lev
 ## Project Structure
 
 ```text
-sol-kavach/
+lantern/
 ├── docs/
 │   └── assets/
 ├── public/

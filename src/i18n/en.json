@@ -1,8 +1,8 @@
 {
   "common": {
-    "appName": "SolKavach",
-    "appNameHindi": "सोल कवच",
-    "tagline": "Your Devnet Security Shield Before You Sign",
+    "appName": "Lantern",
+    "appNameHindi": "लालटेन",
+    "tagline": "Illuminate risks and scams before you sign",
     "subtagline": "Spot scams, dangerous permissions, and token traps in your Solana wallet before signing anything.",
     "devnetBadge": "DEVNET - Test Mode",
     "devnetDisclaimer": "Educational tool on test network. Not financial advice.",
@@ -58,7 +58,7 @@
   },
   "devnetGuard": {
     "modalTitle": "Mainnet Connection Blocked",
-    "modalDesc": "SolKavach is strictly an educational security tool designed for Solana Devnet. Connecting to Mainnet is disabled to protect your real assets.",
+    "modalDesc": "Lantern is strictly an educational security tool designed for Solana Devnet. Connecting to Mainnet is disabled to protect your real assets.",
     "actionInstruction": "Please open your wallet extension (Phantom/Solflare) -> Settings -> Developer Settings -> Change Network to Devnet."
   },
   "scanner": {

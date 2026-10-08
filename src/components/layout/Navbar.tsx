@@ -50,7 +50,7 @@ export function Navbar() {
               </div>
               <div className="flex items-baseline gap-1.5">
                 <span className="font-serif text-xl tracking-tight text-white font-normal">
-                  SolKavach
+                  Lantern
                 </span>
                 <span className="hidden sm:inline text-[11px] font-mono text-[var(--muted)]">
                   [devnet]
