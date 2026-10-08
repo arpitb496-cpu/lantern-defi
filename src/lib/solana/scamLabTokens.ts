@@ -90,7 +90,7 @@ export async function createScamTestToken(
       mintKeypair.publicKey,
       userAta,
       walletPubkey,
-      1_000_000n * 1_000_000_000n,
+      BigInt("1000000000000000"), // 1M tokens with 9 decimals
       [],
       TOKEN_2022_PROGRAM_ID
     )
@@ -166,7 +166,7 @@ export async function createSafeTestToken(
       mintKeypair.publicKey,
       userAta,
       walletPubkey,
-      100_000n * 1_000_000n,
+      BigInt("100000000000"), // 100k tokens with 6 decimals
       [],
       TOKEN_PROGRAM_ID
     ),

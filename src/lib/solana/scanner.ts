@@ -51,13 +51,13 @@ export async function scanTokenMint(
     const largestAccounts = await connection.getTokenLargestAccounts(mintPubkey);
     if (largestAccounts.value && largestAccounts.value.length > 0) {
       const totalRaw = BigInt(supplyRaw);
-      if (totalRaw > 0n) {
-        let top3Sum = 0n;
+      if (totalRaw > BigInt(0)) {
+        let top3Sum = BigInt(0);
         const top3 = largestAccounts.value.slice(0, 3);
         for (const holder of top3) {
           top3Sum += BigInt(holder.amount || "0");
         }
-        topHoldersShare = Number((top3Sum * 10000n) / totalRaw) / 100;
+        topHoldersShare = Number((top3Sum * BigInt(10000)) / totalRaw) / 100;
       }
     }
   } catch {
