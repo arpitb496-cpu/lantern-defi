@@ -1,6 +1,106 @@
-# SolKavach
+<div align="center">
 
-SolKavach is a client-side security platform for Solana Devnet. It audits SPL and Token-2022 mints for trapdoors, simulates raw transactions before wallet signing, scans token account delegations, flags lookalike phishing domains, and provides a sandbox for minting and inspecting test honeypots. The application features bilingual localization (English and Hindi) and a dark Liquid Chrome design system.
+# 🛡️ SolKavach (सोल कवच)
+
+**Pre-Sign Solana Security & Scam Detection Engine**
+
+[![Network](https://img.shields.io/badge/Solana-Devnet_Only-14F195?style=flat-square&logo=solana&logoColor=black)](https://solana.com)
+[![Framework](https://img.shields.io/badge/Next.js-16_(Turbopack)-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![Language](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Testing](https://img.shields.io/badge/Tested_with-Vitest-FCC72B?style=flat-square&logo=vitest&logoColor=black)](https://vitest.dev)
+[![Localization](https://img.shields.io/badge/Languages-English_%7C_%E0%A4%B9%E0%A4%BF%E0%A4%82%E0%A4%A6%E0%A4%80-7C3AED?style=flat-square)](#)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+
+<p align="center">
+  A client-side security platform that audits token contracts, simulates raw transactions before wallet signing, scans token account delegations, flags lookalike phishing domains, and provides a sandbox for minting and inspecting test honeypots.
+</p>
+
+---
+
+![SolKavach Dashboard](docs/assets/dashboard.png)
+
+</div>
+
+---
+
+## Architecture Flowchart
+
+The following flowchart outlines the SolKavach pre-sign analysis pipeline, showing how user inputs and wallet requests are routed through parallel detection modules before a composite security score and recommendation are returned:
+
+```mermaid
+flowchart TD
+    subgraph Inputs["1. Trigger & Input Layer"]
+        A1["Token Mint Address"]
+        A2["Raw Serialized Tx Base64"]
+        A3["Connected Devnet Wallet"]
+        A4["Target dApp URL / Domain"]
+    end
+
+    subgraph Engine["2. SolKavach Risk Analysis Pipeline"]
+        B1["Token Mint Inspector<br/><code>src/lib/solana/scanner.ts</code>"]
+        B2["Pre-Sign Simulator & Instruction Decoder<br/><code>src/lib/solana/simulator.ts</code>"]
+        B3["Delegation & Allowance Auditor<br/><code>src/lib/solana/approvals.ts</code>"]
+        B4["Phishing & Lookalike Heuristic Filter<br/><code>src/lib/security/domainChecker.ts</code>"]
+
+        A1 --> B1
+        A2 --> B2
+        A3 --> B3
+        A4 --> B4
+
+        B1 -->|"Extract Authorities & Token-2022 Extensions"| C["Scoring Engine<br/><code>src/lib/solana/riskScorer.ts</code>"]
+        B2 -->|"Detect SetAuthority / CloseAccount / Approve"| C
+        B3 -->|"Check Active Delegates"| C
+        B4 -->|"Levenshtein Distance & Blocklist Match"| C
+    end
+
+    subgraph Output["3. Verdict & Action Layer"]
+        C --> D1["🟢 SAFE (0–29)<br/>Low Risk — No Critical Flags"]
+        C --> D2["🟡 CAUTION (30–59)<br/>Medium Risk — Uncapped Supply / Metadata Missing"]
+        C --> D3["🔴 DANGER (60–100)<br/>High Risk — Freeze Key Active / Backdoor Delegate"]
+
+        D1 --> E["Client UI Decision Card<br/>English & Hindi Explanations"]
+        D2 --> E
+        D3 --> E
+        E --> F["1-Click Remediation<br/>(Revoke Permission / Cancel Tx)"]
+    end
+```
+
+---
+
+## Core Security Modules
+
+### 1. Token Risk Scanner
+Inspects SPL and Token-2022 mint accounts on Solana Devnet to evaluate active mint/freeze authorities, permanent delegate privileges, transfer hook programs, and holder concentration.
+
+![Token Risk Scanner](docs/assets/scanner.png)
+
+---
+
+### 2. Approvals & Revoke Manager
+Discovers all token accounts in the connected wallet with active delegate spending approvals and builds single-click `createRevokeInstruction` transactions signed directly in the user's wallet.
+
+![Approvals Manager](docs/assets/approvals.png)
+
+---
+
+### 3. Pre-Sign Transaction Preview
+Decodes serialized wire transactions and runs simulated execution (`simulateTransaction`) to identify high-risk instructions (`SetAuthority`, `Approve`, `CloseAccount`) and balance diffs before signing.
+
+![Transaction Preview](docs/assets/preview.png)
+
+---
+
+### 4. Scam Lab Sandbox
+An educational playground for minting both intentionally rigged honeypots (with active freeze authority and permanent delegate backdoors) and safe tokens to verify how scanner heuristics function in practice.
+
+![Scam Lab Sandbox](docs/assets/scam_lab.png)
+
+---
+
+### 5. Domain & Phishing Checker
+Analyzes input URLs against a known drainer blocklist and executes character-level typo-squatting heuristics to detect lookalike attacks targeting official Solana platforms.
+
+![Domain Checker](docs/assets/domain_check.png)
 
 ---
 
@@ -37,6 +137,8 @@ SolKavach is a client-side security platform for Solana Devnet. It audits SPL an
 
 ```text
 sol-kavach/
+├── docs/
+│   └── assets/
 ├── public/
 ├── src/
 │   ├── app/
@@ -62,6 +164,7 @@ sol-kavach/
 ```
 
 ### Directory Overview
+- `docs/assets/`: Embedded screenshot assets and media references used for documentation.
 - `src/app/`: Next.js App Router route handlers for the main dashboard and the five core security modules ([approvals](src/app/approvals/), [domain-check](src/app/domain-check/), [preview](src/app/preview/), [scam-lab](src/app/scam-lab/), [scanner](src/app/scanner/)).
 - `src/components/layout/`: Common UI components including the navigation bar, footer, persistent Devnet badge, and network guard modal.
 - `src/components/wallet/`: Wallet connection providers and Devnet airdrop integration components.
