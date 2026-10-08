@@ -159,6 +159,7 @@ export default function PreviewPage() {
                     <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal">
                       {v.label}
                     </h2>
+                    <p className="mt-2 text-xs text-[var(--muted)]">{t("education.verdictNote")}</p>
                   </div>
                 </div>
               </div>
@@ -217,7 +218,7 @@ export default function PreviewPage() {
             ) : (
               <div className="card-chrome p-6 text-center text-xs text-[var(--muted)] flex items-center justify-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#34d399]" />
-                <span>No hazardous program instructions detected.</span>
+                <span>{t("education.noWarnings")}</span>
               </div>
             )}
           </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolGuide } from "@/components/education/ToolGuide";
+
 import React, { useState } from "react";
 import Link from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -77,12 +79,14 @@ export default function ScamLabPage() {
           </span>
         </div>
         <h1 className="font-serif text-4xl sm:text-6xl text-white font-normal tracking-tight">
-          Scam Lab <span className="italic font-normal text-chrome">Sandbox</span>
+          {t("scamLab.title")}
         </h1>
         <p className="text-[var(--muted)] text-sm sm:text-base max-w-2xl font-normal leading-relaxed">
           {t("scamLab.subtitle")}
         </p>
       </div>
+
+      <ToolGuide tool="scamLab" />
 
       {/* Wallet Guard Prompt */}
       {!connected && (
@@ -110,7 +114,7 @@ export default function ScamLabPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="space-y-1">
               <span className="tag-chip font-mono text-[10px] uppercase">
-                {lastCreatedToken.type === "scam" ? "Honeypot Mint Created" : "Safe Mint Created"}
+                {t(lastCreatedToken.type === "scam" ? "scamLab.riggedCreated" : "scamLab.comparisonCreated")}
               </span>
               <h3 className="font-serif text-2xl text-white font-normal">
                 {t("scamLab.mintSuccess")}
@@ -152,7 +156,7 @@ export default function ScamLabPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="tag-chip font-mono text-[10px] text-[#f87171] border-[rgba(248,113,113,0.3)] bg-[rgba(248,113,113,0.05)]">
-                HONEYPOT DEMO
+                {t("scamLab.riskyPermissions")}
               </span>
               <div className="w-8 h-8 rounded-full border border-[rgba(248,113,113,0.3)] bg-[var(--surface-2)] flex items-center justify-center text-[#f87171]">
                 <Flame className="w-4 h-4" />
@@ -171,15 +175,15 @@ export default function ScamLabPage() {
             <div className="space-y-2 pt-2 border-t border-[var(--border)] text-xs text-[var(--muted)]">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#f87171]" />
-                <span>Active Freeze Authority (Trapdoor)</span>
+                <span>{t("scanner.freezeAuthorityActive")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#f87171]" />
-                <span>Infinite Supply Minting Key</span>
+                <span>{t("scanner.mintAuthorityActive")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#f87171]" />
-                <span>Token-2022 Permanent Delegate</span>
+                <span>{t("scanner.permanentDelegateActive")}</span>
               </div>
             </div>
           </div>
@@ -205,7 +209,7 @@ export default function ScamLabPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="tag-chip font-mono text-[10px] text-[#34d399] border-[rgba(52,211,153,0.3)] bg-[rgba(52,211,153,0.05)]">
-                CLEAN MINT
+                {t("scamLab.revokedAuthorities")}
               </span>
               <div className="w-8 h-8 rounded-full border border-[rgba(52,211,153,0.3)] bg-[var(--surface-2)] flex items-center justify-center text-[#34d399]">
                 <ShieldCheck className="w-4 h-4" />
@@ -224,15 +228,15 @@ export default function ScamLabPage() {
             <div className="space-y-2 pt-2 border-t border-[var(--border)] text-xs text-[var(--muted)]">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#34d399]" />
-                <span>Freeze Authority Revoked</span>
+                <span>{t("scanner.freezeAuthorityClean")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#34d399]" />
-                <span>Mint Authority Revoked (Capped Supply)</span>
+                <span>{t("scanner.mintAuthorityClean")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#34d399]" />
-                <span>Zero Hidden Delegate Privileges</span>
+                <span>{t("scamLab.noPermanentDelegate")}</span>
               </div>
             </div>
           </div>

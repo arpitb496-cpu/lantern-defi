@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolGuide } from "@/components/education/ToolGuide";
+
 import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
@@ -87,7 +89,7 @@ function ScannerContent() {
           border: "border-[rgba(52,211,153,0.3)]",
           bg: "bg-[rgba(52,211,153,0.04)]",
           icon: ShieldCheck,
-          label: language === "hi" ? "सुरक्षित और कम जोखिम" : "Clean & Low Risk",
+          label: t("scanner.verdictClean"),
         };
       case "caution":
         return {
@@ -95,7 +97,7 @@ function ScannerContent() {
           border: "border-[rgba(251,191,36,0.3)]",
           bg: "bg-[rgba(251,191,36,0.04)]",
           icon: AlertTriangle,
-          label: language === "hi" ? "सावधानी बरतें" : "Moderate Risk — Exercise Caution",
+          label: t("scanner.verdictWarning"),
         };
       case "danger":
         return {
@@ -103,7 +105,7 @@ function ScannerContent() {
           border: "border-[rgba(248,113,113,0.3)]",
           bg: "bg-[rgba(248,113,113,0.04)]",
           icon: ShieldAlert,
-          label: language === "hi" ? "अत्यधिक खतरनाक / संभावित स्कैम" : "High Danger / Potential Scam",
+          label: t("scanner.verdictDanger"),
         };
     }
   };
@@ -118,12 +120,14 @@ function ScannerContent() {
           </span>
         </div>
         <h1 className="font-serif text-4xl sm:text-6xl text-white font-normal tracking-tight">
-          Token Risk <span className="italic font-normal text-chrome">Scanner</span>
+          {t("scanner.title")}
         </h1>
         <p className="text-[var(--muted)] text-sm sm:text-base max-w-2xl font-normal leading-relaxed">
           {t("scanner.subtitle")}
         </p>
       </div>
+
+      <ToolGuide tool="scanner" />
 
       {/* Input Section */}
       <section className="card-chrome p-6 sm:p-8 space-y-6">
@@ -219,6 +223,7 @@ function ScannerContent() {
                       <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal">
                         {v.label}
                       </h2>
+                      <p className="mt-2 text-xs text-[var(--muted)]">{t("education.verdictNote")}</p>
                     </div>
                   </div>
 
@@ -357,7 +362,7 @@ function ScannerContent() {
                   {t("scanner.noFlags")}
                 </p>
                 <p className="text-xs text-[var(--muted)]">
-                  Authorities revoked and supply is strictly controlled.
+                  {t("education.verdictNote")}
                 </p>
               </div>
             )}

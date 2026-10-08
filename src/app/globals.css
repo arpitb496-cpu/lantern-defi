@@ -16,11 +16,16 @@
   --warning: #fbbf24;
   --danger: #f87171;
 
-  --font-serif-family: var(--font-serif), "Instrument Serif", Georgia, serif;
-  --font-sans-family: var(--font-sans), Inter, -apple-system, sans-serif;
-  --font-mono-family: var(--font-mono), "JetBrains Mono", monospace;
+  --font-serif-family: var(--font-serif), var(--font-hindi-serif), "Instrument Serif", Georgia, serif;
+  --font-sans-family: var(--font-sans), var(--font-hindi-sans), Inter, -apple-system, sans-serif;
+  --font-mono-family: var(--font-mono), var(--font-hindi-sans), "JetBrains Mono", monospace;
   --font-hindi-serif-family: var(--font-hindi-serif), var(--font-serif-family);
   --font-hindi-sans-family: var(--font-hindi-sans), var(--font-sans-family);
+}
+
+html:lang(hi) {
+  --font-serif-family: var(--font-hindi-serif), var(--font-serif), Georgia, serif;
+  --font-sans-family: var(--font-hindi-sans), var(--font-sans), sans-serif;
 }
 
 body {

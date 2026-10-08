@@ -12,8 +12,6 @@ import {
   AlertTriangle,
   ShieldAlert,
   Search,
-  ExternalLink,
-  Sparkles,
 } from "lucide-react";
 
 export default function DomainCheckPage() {
@@ -30,23 +28,32 @@ export default function DomainCheckPage() {
   };
 
   const exampleLinks = [
-    { label: "phantom.app", type: "safe" },
+    { label: "example.com", type: "unknown" },
+    { label: "phantom.app", type: "recognized" },
     { label: "phant0m.app", type: "suspicious" },
     { label: "phantom-airdrop.xyz", type: "blocked" },
-    { label: "jup.ag", type: "safe" },
+    { label: "jup.ag", type: "recognized" },
     { label: "jupiter-airdrop-claim.com", type: "blocked" },
-    { label: "solflare.com", type: "safe" },
+    { label: "solflare.com", type: "recognized" },
   ];
 
   const getVerdictDetails = (verdict: DomainCheckResult["verdict"]) => {
     switch (verdict) {
-      case "safe":
+      case "recognized":
         return {
           color: "#34d399",
           border: "border-[rgba(52,211,153,0.3)]",
           bg: "bg-[rgba(52,211,153,0.04)]",
           icon: ShieldCheck,
-          title: t("domainCheck.resultSafe"),
+          title: t("domainCheck.resultRecognized"),
+        };
+      case "unknown":
+        return {
+          color: "#9ca3af",
+          border: "border-[var(--border)]",
+          bg: "bg-[var(--surface-2)]",
+          icon: Globe2,
+          title: t("domainCheck.resultUnknown"),
         };
       case "suspicious":
         return {
@@ -77,7 +84,7 @@ export default function DomainCheckPage() {
           </span>
         </div>
         <h1 className="font-serif text-4xl sm:text-6xl text-white font-normal tracking-tight">
-          Domain & Link <span className="italic font-normal text-chrome">Checker</span>
+          {t("domainCheck.title")}
         </h1>
         <p className="text-[var(--muted)] text-sm sm:text-base max-w-2xl font-normal leading-relaxed">
           {t("domainCheck.subtitle")}
@@ -137,7 +144,9 @@ export default function DomainCheckPage() {
                     ? "text-[#f87171] border-[rgba(248,113,113,0.2)]"
                     : ex.type === "suspicious"
                     ? "text-[#fbbf24] border-[rgba(251,191,36,0.2)]"
-                    : "text-[#34d399] border-[rgba(52,211,153,0.2)]"
+                    : ex.type === "recognized"
+                    ? "text-[#34d399] border-[rgba(52,211,153,0.2)]"
+                    : "text-[var(--muted)] border-[var(--border)]"
                 }`}
               >
                 <span className="font-mono">{ex.label}</span>
@@ -165,22 +174,23 @@ export default function DomainCheckPage() {
                     </div>
                     <div>
                       <span className="font-mono text-xs uppercase tracking-wider text-[var(--muted)]">
-                        Domain Safety Analysis
+                        {t("domainCheck.details")}
                       </span>
                       <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal">
                         {v.title}
                       </h2>
+                      <p className="mt-2 text-xs text-[var(--muted)]">{t("education.verdictNote")}</p>
                     </div>
                   </div>
 
                   <span className="tag-chip font-mono text-xs text-white uppercase self-start sm:self-auto">
-                    {result.verdict.toUpperCase()}
+                    {t(`domainCheck.status.${result.verdict}`)}
                   </span>
                 </div>
 
                 <div className="pt-2 border-t border-[var(--border)] space-y-2">
                   <div className="flex items-center gap-2 font-mono text-xs text-[var(--muted)]">
-                    <span>Analyzed Host:</span>
+                    <span>{t("domainCheck.analyzedHost")}</span>
                     <span className="text-white font-medium">{result.domain}</span>
                   </div>
 
@@ -190,7 +200,7 @@ export default function DomainCheckPage() {
 
                   {result.matchedOfficialDomain && (
                     <div className="pt-2 flex items-center gap-2 text-xs font-mono text-[var(--muted)]">
-                      <span>Official Reference:</span>
+                      <span>{t("domainCheck.officialReference")}</span>
                       <span className="tag-chip text-white font-mono py-0 px-2">
                         {result.matchedOfficialDomain}
                       </span>

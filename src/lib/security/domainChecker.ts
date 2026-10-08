@@ -1,6 +1,9 @@
+import en from "../../i18n/en.json";
+import hi from "../../i18n/hi.json";
+
 export interface DomainCheckResult {
   domain: string;
-  verdict: "safe" | "suspicious" | "blocked";
+  verdict: "recognized" | "unknown" | "suspicious" | "blocked";
   reasonEn: string;
   reasonHi: string;
   matchedOfficialDomain?: string;
@@ -85,9 +88,9 @@ export function checkDomainSafety(inputUrlOrDomain: string): DomainCheckResult {
   if (OFFICIAL_SOLANA_DOMAINS.includes(cleaned)) {
     return {
       domain: cleaned,
-      verdict: "safe",
-      reasonEn: "Verified official domain in the Solana ecosystem.",
-      reasonHi: "सोलाना इकोसिस्टम का सत्यापित आधिकारिक डोमेन।",
+      verdict: "recognized",
+      reasonEn: en.domainCheck.officialReason,
+      reasonHi: hi.domainCheck.officialReason,
       matchedOfficialDomain: cleaned,
     };
   }
@@ -140,8 +143,8 @@ export function checkDomainSafety(inputUrlOrDomain: string): DomainCheckResult {
   // 4. Unknown domain
   return {
     domain: cleaned,
-    verdict: "safe",
-    reasonEn: "No direct scam match or typo-squatting patterns detected. Always verify SSL and contract origins before signing.",
-    reasonHi: "कोई सीधा स्कैम या फ़िशिंग पैटर्न नहीं मिला। हस्ताक्षर करने से पहले हमेशा सावधानी बरतें।",
+    verdict: "unknown",
+    reasonEn: en.domainCheck.resultUnknown,
+    reasonHi: hi.domainCheck.resultUnknown,
   };
 }
